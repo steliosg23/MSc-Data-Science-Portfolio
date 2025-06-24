@@ -1,3 +1,12 @@
+## 👨‍🎓 About Me
+**Stylianos Giagkos**  
+MSc in Data Science, Class of 2025  
+Athens University of Economics and Business  
+Currently: Junior Data Engineer at EY Greece (AI & Data Department)  
+📧 [Email](mailto:steliosgiagkos@outlook.com) | 🔗 [LinkedIn](https://linkedin.com/in/steliosgiagkos)
+
+---
+
 # 📂 MSc Data Science Portfolio — Stylianos Giagkos
 
 Welcome to my academic portfolio from the MSc in Data Science at the Athens University of Economics and Business (AUEB). This repository showcases a curated collection of course projects, reports, and implementations across machine learning, deep learning, SQL, data engineering, and data visualization.
@@ -127,11 +136,4 @@ Focus: Evidence-based storytelling using R, Tableau, and interactive dashboards.
 
 ---
 
-## 👨‍🎓 About Me
-**Stylianos Giagkos**  
-MSc in Data Science, Class of 2025  
-Athens University of Economics and Business  
-Currently: Junior Data Engineer at EY Greece (AI & Data Department)  
-📧 [Email](mailto:steliosgiagkos@outlook.com) | 🔗 [LinkedIn](https://linkedin.com/in/steliosgiagkos)
 
----
