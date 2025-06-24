@@ -1,44 +1,29 @@
 # Legal and Ethical Issues in Data Science
 
-This repository contains the final group assignment for the course **Legal and Ethical Issues in Data Science**.
+**Project Title**: *Cambridge Analytica – The Use of Personal Data and Its Influence on Political Processes and Privacy*  
+**Course**: Legal and Ethical Issues in Data Science (2024–2025)  
+**Program**: MSc Data Science, Athens University of Economics and Business  
 
 ---
 
-## 📘 Final Report Summary
+## 📘 Project Description
 
-### 🔍 Topic: Ethical Analysis of Data Science in Public Policy and Health
-
-This report explores the ethical, legal, and societal implications of using Data Science and Artificial Intelligence in sensitive domains such as **public policy** and **healthcare**.
-
-### 🧠 Key Topics Covered
-
-- **Algorithmic Bias** and **Fairness**: How biased datasets and models can lead to discrimination in health policy.
-- **Privacy and Data Protection**: GDPR and the legal basis for data collection, consent, and anonymization.
-- **Accountability in Automated Decisions**: Responsibility of developers, organizations, and policymakers.
-- **Transparency and Explainability**: Challenges in deploying black-box AI systems in critical sectors.
-- **AI Ethics Frameworks**: Comparison of principles from the EU, UNESCO, and the ACM.
-
-### ⚖️ Case Study
-
-The report includes a critical case study involving the **deployment of a predictive system in public health resource allocation**, evaluating:
-
-- Stakeholder impacts (citizens, policy makers, private sector)
-- Ethical dilemmas (efficiency vs equity)
-- Legal compliance (GDPR, human-in-the-loop requirements)
-- Recommendations for responsible data use
+This project focuses on the **Cambridge Analytica scandal**, a landmark case in the misuse of personal data for political gain. The report explores the **ethical and legal challenges** posed by the application of data science techniques for **political micro-targeting**, **privacy violations**, and the **manipulation of democratic processes**.
 
 ---
 
-## 📎 File Structure
+## 🧪 Key Topics Explored
 
-```
-📄 Νομικά και Ηθικά Ζητήματα Στην Επιστήμη Δεδομένων.pdf  # Final group report (Greek)
-📁 README.md                                              # This file
-```
+- **Introduction** to data science through the lens of ethics and legal responsibility.
+- **Case Study Analysis**: How Cambridge Analytica harvested personal Facebook data via the *myPersonality* app and used psychographic profiling to influence voters.
+- **Facebook’s Role** in enabling large-scale data collection and its failures in enforcing transparency and informed consent.
+- **Legal Issues**: Examination of GDPR violations, data subject rights, and lawful data processing practices.
+- **Ethical Dilemmas**: Informed consent, transparency, autonomy, and the ethics of behavioral influence.
+- **Impact on Democracy**: The erosion of voter autonomy, democratic decision-making, and public trust in electoral processes.
+- **Policy Recommendations**: Proposes ethical guidelines for data science, stronger regulatory frameworks, and increased public awareness on data rights.
 
 ---
 
-## 🌐 Language
+## 📌 Conclusions
 
-**Report Language:** Greek  
-**Summary Language:** English (for GitHub and international audiences)
+The report concludes that **data science must be applied responsibly**, with emphasis on transparency, privacy, and democratic integrity. The Cambridge Analytica scandal is a turning point that highlights the urgent need for **ethical accountability**, **regulatory enforcement**, and **public literacy** in the age of big data.
