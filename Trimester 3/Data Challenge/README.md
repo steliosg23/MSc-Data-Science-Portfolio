@@ -54,3 +54,13 @@ The combination of **graph embeddings + textual features** yielded superior resu
 ## 📌 Conclusion
 
 By combining textual understanding and network science, this project effectively addressed a real-world e-commerce classification challenge. The methodology is robust, scalable, and interpretable, with room for extension into deep learning or BERT-based text embeddings in future work.
+
+---
+
+## 📚 Authors
+
+- **Stylianos Giagkos** ([@steliosg23](https://github.com/steliosg23))  
+- **Kazantzis Gerasimos**
+- **Vougioukos Dimitris**
+
+---
