@@ -81,11 +81,3 @@
 - EXPLAIN and query cost analysis
 
 ---
-
-## 👨‍🎓 About Me
-**Stylianos Giagkos**  
-MSc in Data Science, Athens University of Economics and Business  
-Currently: Junior Data Engineer at EY Greece (AI & Data Department)  
-[LinkedIn](https://linkedin.com/in/steliosgiagkos) | [Email](mailto:steliosgiagkos@outlook.com)
-
----
