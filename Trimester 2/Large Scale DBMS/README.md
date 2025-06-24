@@ -60,11 +60,3 @@ This project introduces a complete data pipeline using real-time technologies.
   - Optimized for performance with proper keys, LZ4 compression, caching
 
 ---
-
-## 📎 File Structure
-
-```
-📁 LSDM Assignment 1 Report  # WordCount and Car Sales MapReduce project
-📁 LSDM Assignment 2 Report  # Kafka-Spark-Cassandra streaming pipeline
-📁 README.md                    # This summary
-```
