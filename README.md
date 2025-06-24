@@ -1,11 +1,12 @@
 # 📂 MSc Data Science Portfolio — Stylianos Giagkos
 
-Welcome to my academic portfolio from the MSc in Data Science at the Athens University of Economics and Business (AUEB). This repository showcases a curated collection of course projects, reports, and implementations across Machine Learning, Deep Learning SQL, data engineering, and database systems .
+Welcome to my academic portfolio from the MSc in Data Science at the Athens University of Economics and Business (AUEB). This repository showcases a curated collection of course projects, reports, and implementations across machine learning, deep learning, SQL, data engineering, and data visualization.
 
 ---
+
 # 🎓 MSc in Data Science – Academic Portfolio  
 **Athens University of Economics and Business (2024–2025)**  
-Author: Stylianos Giagkos (f3352410)
+**Author:** Stylianos Giagkos (f3352410)
 
 ---
 
@@ -20,106 +21,107 @@ Each directory corresponds to a course and contains all relevant assignments, co
 ## 🗂️ Courses Included
 
 ### 📌 Introduction to Data Management and Engineering  
-Focus: Relational databases, schema design, normalization, and SQL performance.
-
-- Entity-Relationship (ER) modeling  
-- DDL/DML SQL scripting (PostgreSQL, pgAdmin)  
+Focus: Relational databases, schema design, normalization, and SQL performance.  
+- ER modeling and normalization  
+- SQL DDL/DML scripting (PostgreSQL, pgAdmin)  
 - Views, constraints, and indexing strategies  
-- Query optimization with `EXPLAIN` and indexing
+- Query optimization with `EXPLAIN` and indexing techniques
 
 ---
 
 ### 📌 Machine Learning and Computational Statistics  
-Focus: Fundamental ML algorithms and their statistical underpinnings.
-
+Focus: Fundamental ML algorithms and their statistical underpinnings.  
 - Parametric & non-parametric density estimation  
-- Linear, logistic, and regularized regression  
-- Support Vector Machines and Bayesian classifiers  
+- Regression (linear, logistic, Lasso, Ridge)  
+- SVMs, Naive Bayes, and PCA  
 - Final project: Hyperspectral image classification (Salinas dataset)  
-- Tools: `scikit-learn`, `matplotlib`, `cvxpy`, `numpy`
+- Tools: `scikit-learn`, `cvxpy`, `matplotlib`, `numpy`
 
 ---
 
 ### 📌 Practical Data Science  
-Focus: Applied projects and competitions combining NLP, graph mining, and unsupervised learning.
-
-- Data cleaning, feature engineering, and EDA  
-- Transformer-based text classification (BERT variants)  
-- Unsupervised image clustering with deep features  
+Focus: End-to-end applied projects combining NLP, graph mining, and unsupervised learning.  
+- Data preprocessing and feature engineering  
+- Transformer-based multi-label classification (BERT, RoBERTa)  
+- Image clustering using deep feature embeddings  
 - Participation in **SemEval 2025 – Food Hazard Detection Challenge**  
-- Tools: HuggingFace, LightGBM, scikit-learn, ResNet101
+- Tools: HuggingFace, LightGBM, `scikit-learn`, `ResNet101`
 
 ---
 
 ### 📌 Probability and Statistics for Data Analysis  
-Focus: Statistical theory and inference using R.
-
-- Probability distributions, Bayes' theorem, Poisson process  
-- Hypothesis testing, confidence intervals  
-- ANOVA, regression, interaction modeling  
+Focus: Statistical inference and probabilistic modeling using R.  
+- Bayes' theorem, probability distributions, Poisson process  
+- Hypothesis testing, confidence intervals, ANOVA  
+- Interaction modeling and regression diagnostics  
 - Tools: R, `ggplot2`, `stats`, `car`, `lm`
 
 ---
 
 ### 📌 Large Scale Data Management  
-Focus: Distributed and real-time data engineering.
-
-- Hadoop MapReduce with Java and Maven  
-- Real-time pipelines using Kafka, PySpark, and Cassandra  
-- Stream processing, enrichment, and Cassandra schema design  
-- Topics: HDFS, job optimization, structured streaming  
+Focus: Distributed data systems and real-time processing pipelines.  
+- Hadoop MapReduce (Java, Maven)  
+- Real-time pipelines with Kafka, PySpark, and Cassandra  
+- Structured streaming and stateful transformations  
+- Topics: HDFS, job scheduling, streaming joins
 
 ---
 
 ### 📌 Legal and Ethical Issues in Data Science  
-Focus: Data privacy, algorithmic ethics, and legal frameworks.
-
-- GDPR and personal data rights  
-- Case studies: Cambridge Analytica and behavioral targeting  
-- Policy design for ethical AI and algorithmic accountability  
-- Topics: Informed consent, autonomy, data misuse
+Focus: Data privacy, fairness, and responsible AI.  
+- GDPR, data governance, and personal data rights  
+- Algorithmic bias, discrimination, and accountability  
+- Case studies: Cambridge Analytica, social scoring  
+- Policy design for ethical AI systems
 
 ---
 
 ### 📌 Numerical Optimization and Large-Scale Linear Algebra  
-Focus: Optimization algorithms for machine learning and data analysis.
-
-- Least squares for constrained illumination  
-- Digit classification via SVD and kernel methods  
-- PageRank calculation via power method and Gauss-Seidel  
-- Topics: Matrix factorization, iterative solvers, convergence analysis
+Focus: Optimization and matrix methods for ML and data science.  
+- Constrained least squares, PageRank, SVD  
+- Iterative solvers (power method, Gauss-Seidel)  
+- Kernel methods and digit classification  
+- Tools: NumPy, `scipy.sparse`, custom numerical routines
 
 ---
 
 ### 📌 Text Analytics  
-Focus: Natural Language Processing using both classic and deep learning models.
-
-- N-gram models, spelling correction, perplexity  
-- MLPs, RNNs with attention, CNNs for text  
-- Fine-tuning Transformers (BERT, RoBERTa)  
-- Metrics: Accuracy, F1-score, PR AUC  
+Focus: Natural Language Processing using both classic and deep learning models.  
+- Tokenization, n-grams, perplexity, Levenshtein edit distance  
+- Deep models: MLPs, CNNs for text, RNNs with attention  
+- Fine-tuned BERT and RoBERTa for multi-class tasks  
+- Evaluation: Accuracy, F1-score, PR AUC  
 - Tools: PyTorch, HuggingFace, TensorFlow, Colab
 
 ---
 
 ### 📌 Deep Learning Research Project  
-**Title:** *Respiratory Sound Recognition Using Deep Learning*  
-Supervised by: Prof. Themos Stafylakis  
-
-- Comparative study of CNN, ResNet50, and DenseNet121  
-- Full audio preprocessing and spectrogram generation  
+Focus: Deep learning for clinical audio diagnostics using respiratory sound data.  
+- Comparative study of CNN, ResNet50, and DenseNet121 architectures  
+- Full preprocessing pipeline: resampling (4kHz), DFT-based baseline removal, spectrogram generation  
 - Evaluation on 10-class respiratory disease dataset  
-- Topics: Transfer learning, domain adaptation, augmentation  
-- Tools: PyTorch, Librosa, Scikit-learn
+- Techniques: transfer learning, domain adaptation (GRL), data augmentation  
+- Tools: PyTorch, Librosa, Scikit-learn  
 
 ---
 
+### 📌 Data Visualization and Communication  
+Focus: Evidence-based storytelling using R, Tableau, and interactive dashboards.  
+- Project 1: *Greece in the Global Classroom (PISA 2018)*  
+  - Analyzed Greece's educational performance across subjects, gender, SES, and investment  
+  - Tools: `ggplot2`, `dplyr`, `gganimate`, Tableau  
+- Project 2: *France on the Road (2009–2012)*  
+  - Explored national road accident trends using demographic, temporal, and spatial insights  
+  - Tools: `ggplot2`, `gganimate`, Tableau  
+- Outcomes: Delivered data-driven policy recommendations and interactive visual dashboards
+
+---
 
 ## 👨‍🎓 About Me
 **Stylianos Giagkos**  
-MSc in Data Science, Class of 2025 
-Athens University of Economics and Business
+MSc in Data Science, Class of 2025  
+Athens University of Economics and Business  
 Currently: Junior Data Engineer at EY Greece (AI & Data Department)  
-[LinkedIn](https://linkedin.com/in/steliosgiagkos) | [Email](mailto:steliosgiagkos@outlook.com)
+📧 [Email](mailto:steliosgiagkos@outlook.com) | 🔗 [LinkedIn](https://linkedin.com/in/steliosgiagkos)
 
 ---
