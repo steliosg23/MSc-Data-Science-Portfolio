@@ -19,7 +19,7 @@ library(tidyterra)    # Tidy methods for terra objects (spatial rasters)
 library(ggpubr)       # For enhancing ggplot2 publications
 
 # Set working directory. This should be adjusted based on the user's file structure.
-setwd("C:/Users/steli/Stelios/DS AUEB/Trimester 3/Data Visualization/Project 2/FranceRoadAccidents/Data")
+setwd("C:/Users/steli/Stelios/Data Science AUEB/Course Material/Trimester 3/Data Visualization/Project 2/FranceRoadAccidents/Data")
 
 # --- Define Global Design Theme ---
 # A consistent theme for all static plots to ensure professional aesthetics.
@@ -51,7 +51,7 @@ colors <- c(
   "#6ED6A2",  # Mint green with clarity
   "#FFD966",  # Warm yellow, still pastel
   "#CBA8EB",  # Softer orchid purple
-  "#5FD6BE",  # Gentle teal
+  "#B7E3BC",  # Gentle teal
   "#FFB266",  # Balanced tangerine
   "#FF99AA",  # Gentle pink-red
   "#89CFF0",  # Clear pastel aqua
@@ -83,32 +83,33 @@ injury_colors <- c(
 
 # --- Plot Save Function ---
 # Directory for saving plots; created if it doesn't exist.
-output_dir <- "C:/Users/steli/Stelios/DS AUEB/Trimester 3/Data Visualization/Project 2/FranceRoadAccidents/Data/plots"
+output_dir <- "C:/Users/steli/Stelios/Data Science AUEB/Course Material/Trimester 3/Data Visualization/Project 2/FranceRoadAccidents/plots"
 dir.create(output_dir, showWarnings = FALSE)
 
-# Enhanced function to save ggplot objects with consistent styling and formatting.
-save_plot <- function(plot, filename, width = 14, height = 8, units = "in", subtitle = "") {
+save_plot <- function(plot, filename, width = 14, height = 8, units = "in", subtitle = "", 
+                      remove_x_labels = FALSE, remove_y_labels = FALSE) {
   source_caption <- "Source: French National Road Accidents Database (BAAC), data.gouv.fr, 2005–2023"
   
-  # Apply the design theme and add labs (title, subtitle, caption).
+  # Build dynamic theme with optional axis label removal
+  theme_mod <- theme(
+    plot.caption = element_text(size = 12, color = "#a1a1a6", hjust = 1, margin = margin(t = 12)),
+    plot.title = element_text(size = 24, face = "bold", hjust = 0),
+    plot.subtitle = element_text(size = 18, hjust = 0, color = "#86868b"),
+    axis.title = element_text(size = 18, face = "bold"),
+    axis.text.x = if (remove_x_labels) element_blank() else element_text(size = 14, hjust = 0.5),
+    axis.text.y = if (remove_y_labels) element_blank() else element_text(size = 14),
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 16, face = "bold")
+  )
+  
+  # Apply design theme and custom labels
   plot <- plot +
     design_theme() +
     labs(subtitle = subtitle, caption = source_caption) +
-    theme(
-      plot.caption = element_text(size = 12, color = "#a1a1a6", hjust = 1, margin = margin(t = 12)), # Styling for source caption
-      plot.title = element_text(size = 24, face = "bold", hjust = 0),              # Larger plot title
-      plot.subtitle = element_text(size = 18, hjust = 0, color = "#86868b"),       # Larger plot subtitle
-      axis.title = element_text(size = 18, face = "bold"),                         # Bigger axis titles
-      axis.text = element_text(size = 14),                                         # Bigger tick labels
-      axis.text.x = element_text(hjust = 0.5),                                     # Centered x-axis labels
-      legend.text = element_text(size = 14),                                       # Clear legend text
-      legend.title = element_text(size = 16, face = "bold")                        # Clear legend title
-    )
+    theme_mod
   
-  # Smart axis formatting for large numbers using `scales::label_number`.
-  # This dynamically applies comma formatting to numeric axes.
+  # Auto-format axes if numeric
   built_plot <- ggplot_build(plot)
-  
   if (inherits(built_plot$layout$panel_scales_x[[1]]$range, "numeric")) {
     plot <- plot + scale_x_continuous(labels = scales::label_number(accuracy = 1, big.mark = ","))
   }
@@ -116,7 +117,7 @@ save_plot <- function(plot, filename, width = 14, height = 8, units = "in", subt
     plot <- plot + scale_y_continuous(labels = scales::label_number(accuracy = 1, big.mark = ","))
   }
   
-  # Save the plot with specified dimensions and DPI.
+  # Save final plot
   ggsave(
     filename = file.path(output_dir, filename),
     plot = plot,
@@ -124,9 +125,11 @@ save_plot <- function(plot, filename, width = 14, height = 8, units = "in", subt
     height = height,
     units = units,
     dpi = 300,
-    limitsize = FALSE # Allow plots to exceed typical graphic device limits if needed
+    limitsize = FALSE
   )
 }
+
+
 
 # --- Load and Prepare Data ---
 # Load the main dataset and perform initial data cleaning and feature engineering.
@@ -154,210 +157,218 @@ df <- read_csv("road_accidents_2009_2012_merged.csv") %>%
     )
   )
 
-# --- Standardized Plot Generation and Save Calls with Subtitles ---
-# 1. Accidents by Day of Week
-# Bar chart showing the total number of accidents for each day of the week.
-save_plot(df %>% 
-            distinct(Accident_ID, DayOfWeek) %>%
-            count(DayOfWeek) %>%
-            ggplot(aes(x = DayOfWeek, y = n)) +
-            geom_segment(aes(xend = DayOfWeek, yend = 0), color = colors[1], size = 1.2) + # Vertical lines from 0 to count
-            geom_point(color = colors[1], size = 5) + # Points at the top of the lines
-            labs(title = "Accidents by Day of Week", x = "Day", y = "Number of Accidents"),
-          "01_temporal_dayofweek.jpg",
-          subtitle = "Distribution of accidents across weekdays"
-)
+# --- Deprecated Static Plot Generation Code ---
+# The following code block contains functions for generating static plots.
+# These have been superseded by animated plot versions to provide a more dynamic
+# and insightful visualization experience. Therefore, this code is no longer
+# actively used and has been commented out.
 
-# 2. Hourly Distribution of Accidents
-# Line plot showing the number of accidents per hour of the day, with a LOESS trend line.
-hour_breaks <- 0:23
-hour_labels <- sprintf("%02dh", hour_breaks) # Format hour labels (e.g., "00h", "01h")
+# # 1. Accidents by Day of Week
+# # Bar chart displaying the total number of accidents for each day of the week.
+# save_plot(df %>%
+#             distinct(Accident_ID, DayOfWeek) %>%
+#             count(DayOfWeek) %>%
+#             ggplot(aes(x = DayOfWeek, y = n)) +
+#             geom_segment(aes(xend = DayOfWeek, yend = 0), color = colors[1], size = 1.2) +
+#             geom_point(color = colors[1], size = 5) +
+#             labs(title = "Accidents by Day of Week", x = "Day", y = "Number of Accidents"),
+#           "01_temporal_dayofweek.jpg",
+#           subtitle = "Distribution of accidents across weekdays"
+# )
 
-save_plot(
-  df %>%
-    distinct(Accident_ID, Hour) %>%
-    count(Hour) %>%
-    ggplot(aes(x = Hour, y = n)) +
-    geom_line(aes(color = "Accidents"), size = 1.2) + # Line for accident counts
-    geom_point(aes(color = "Accidents"), size = 2) + # Points for each hour
-    geom_smooth(aes(color = "Trend"), method = "loess", se = FALSE, linetype = "dashed", size = 1) + # LOESS trend line
-    scale_x_continuous(breaks = hour_breaks, labels = hour_labels) +
-    scale_color_manual( # Custom colors for lines
-      name = NULL,
-      values = c("Accidents" = colors[2], "Trend" = "#86868b")
-    ) +
-    labs(
-      title = "Hourly Distribution of Accidents",
-      x = "Hour of Day",
-      y = "Accidents"
-    ) +
-    theme(legend.position = "bottom"), # Legend at the bottom
-  "02_temporal_hourly.jpg",
-  subtitle = "Number of accidents by hour (00:00–23:00)"
-)
+# # 2. Hourly Distribution of Accidents
+# # Line plot illustrating the number of accidents per hour, including a LOESS trend line.
+# hour_breaks <- 0:23
+# hour_labels <- sprintf("%02dh", hour_breaks)
 
-# 3. Monthly Trend of Accidents with Peaks
-# Line plot showing monthly accident counts with highlighted peaks for each year.
+# save_plot(
+#   df %>%
+#     distinct(Accident_ID, Hour) %>%
+#     count(Hour) %>%
+#     ggplot(aes(x = Hour, y = n)) +
+#     geom_line(aes(color = "Accidents"), size = 1.2) +
+#     geom_point(aes(color = "Accidents"), size = 2) +
+#     geom_smooth(aes(color = "Trend"), method = "loess", se = FALSE, linetype = "dashed", size = 1) +
+#     scale_x_continuous(breaks = hour_breaks, labels = hour_labels) +
+#     scale_color_manual(
+#       name = NULL,
+#       values = c("Accidents" = colors[2], "Trend" = "#86868b")
+#     ) +
+#     labs(
+#       title = "Hourly Distribution of Accidents",
+#       x = "Hour of Day",
+#       y = "Accidents"
+#     ) +
+#     theme(legend.position = "bottom"),
+#   "02_temporal_hourly.jpg",
+#   subtitle = "Number of accidents by hour (00:00–23:00)"
+# )
 
-# Prepare monthly counts
-monthly_data <- df %>%
-  distinct(Accident_ID, Date) %>%
-  mutate(MonthYear = floor_date(Date, "month")) %>% # Group by month and year
-  count(MonthYear) %>%
-  mutate(
-    year_val = year(MonthYear),
-    month_val = month(MonthYear),
-    month_label = ifelse(month_val == 1, # Label January with year for context
-                         paste0("1\n", year_val),
-                         as.character(month_val))
-  )
+# # 3. Monthly Trend of Accidents with Peaks
+# # Line plot showing monthly accident counts with highlighted yearly peaks.
 
-# Identify peak months for each year
-peak_months <- df %>%
-  distinct(Accident_ID, Date) %>%
-  mutate(Year = year(Date), MonthYear = floor_date(Date, "month")) %>%
-  count(Year, MonthYear) %>%
-  group_by(Year) %>%
-  filter(n == max(n)) %>% # Filter for the month with max accidents per year
-  ungroup() %>%
-  mutate(
-    MonthName = format(MonthYear, "%B"), # Full month name
-    label = paste0(MonthName, " ", Year, "\nPeak: ", n) # Label for peaks
-  )
+# # Prepare monthly counts
+# monthly_data <- df %>%
+#   distinct(Accident_ID, Date) %>%
+#   mutate(MonthYear = floor_date(Date, "month")) %>%
+#   count(MonthYear) %>%
+#   mutate(
+#     year_val = year(MonthYear),
+#     month_val = month(MonthYear),
+#     month_label = ifelse(month_val == 1,
+#                           paste0("1\n", year_val),
+#                           as.character(month_val))
+#   )
 
-# Calculate max y-value for plot padding
-ymax <- max(monthly_data$n) * 1.12
+# # Identify peak months for each year
+# peak_months <- df %>%
+#   distinct(Accident_ID, Date) %>%
+#   mutate(Year = year(Date), MonthYear = floor_date(Date, "month")) %>%
+#   count(Year, MonthYear) %>%
+#   group_by(Year) %>%
+#   filter(n == max(n)) %>%
+#   ungroup() %>%
+#   mutate(
+#     MonthName = format(MonthYear, "%B"),
+#     label = paste0(MonthName, " ", Year, "\nPeak: ", n)
+#   )
 
-# Generate and save the plot
-save_plot(
-  ggplot(monthly_data, aes(x = MonthYear, y = n)) +
-    geom_line(aes(color = "Accidents"), size = 1.2) + # Line for monthly counts
-    geom_point(aes(color = "Accidents"), size = 2) + # Points for monthly counts
-    geom_smooth(aes(color = "Trend"), method = "loess", se = FALSE, # LOESS trend line
-                linetype = "dashed", size = 1) +
-    geom_point(data = peak_months, aes(x = MonthYear, y = n), color = "#8B0000", size = 3) + # Highlight peak points
-    geom_text( # Label peak points
-      data = peak_months,
-      aes(x = MonthYear, y = n, label = label),
-      vjust = -1.1, color = "#8B0000", size = 5, fontface = "bold"
-    ) +
-    scale_color_manual( # Custom colors for lines
-      name = NULL,
-      values = c("Accidents" = colors[2], "Trend" = "#86868b")
-    ) +
-    expand_limits(y = ymax) +  # Ensure top labels are not clipped
-    scale_x_date( # Custom x-axis for dates
-      breaks = monthly_data$MonthYear,
-      labels = monthly_data$month_label,
-      expand = c(0.01, 0.01),
-      guide = guide_axis(angle = 0)
-    ) +
-    labs(
-      title = "Monthly Trend of Accidents (2009–2012)",
-      x = "Month",
-      y = "Accidents"
-    ) +
-    theme_minimal(base_family = "Helvetica") + # Use minimal theme specifically for this plot
-    theme(
-      text = element_text(color = "#1d1d1f"),
-      plot.title = element_text(size = 18, face = "bold", hjust = 0.5, margin = margin(b = 15)), # Centered title
-      plot.subtitle = element_text(size = 14, hjust = 0.5, color = "#86868b", margin = margin(b = 15)), # Centered subtitle
-      axis.title = element_text(size = 14, face = "bold"),
-      axis.text = element_text(size = 12),
-      axis.text.x = element_text(size = 10, vjust = 0.6),
-      panel.grid.minor.x = element_blank(),
-      legend.position = "bottom",
-      legend.text = element_text(size = 12)
-    ),
-  filename = "03_temporal_monthly_peaks.jpg",
-  subtitle = "Monthly evolution of accidents with peaks"
-)
+# # Calculate max y-value for plot padding
+# ymax <- max(monthly_data$n) * 1.12
 
-# 4. Accident Density Heatmap: Hour vs Day
-# Heatmap visualizing the density of accidents across hours of the day and days of the week.
-hour_breaks <- seq(0, 22, by = 2)  # Define breaks for every two hours
+# # Generate and save the plot
+# save_plot(
+#   ggplot(monthly_data, aes(x = MonthYear, y = n)) +
+#     geom_line(aes(color = "Accidents"), size = 1.2) +
+#     geom_point(aes(color = "Accidents"), size = 2) +
+#     geom_smooth(aes(color = "Trend"), method = "loess", se = FALSE,
+#                 linetype = "dashed", size = 1) +
+#     geom_point(data = peak_months, aes(x = MonthYear, y = n), color = "#8B0000", size = 3) +
+#     geom_text(
+#       data = peak_months,
+#       aes(x = MonthYear, y = n, label = label),
+#       vjust = -1.1, color = "#8B0000", size = 5, fontface = "bold"
+#     ) +
+#     scale_color_manual(
+#       name = NULL,
+#       values = c("Accidents" = colors[2], "Trend" = "#86868b")
+#     ) +
+#     expand_limits(y = ymax) +
+#     scale_x_date(
+#       breaks = monthly_data$MonthYear,
+#       labels = monthly_data$month_label,
+#       expand = c(0.01, 0.01),
+#       guide = guide_axis(angle = 0)
+#     ) +
+#     labs(
+#       title = "Monthly Trend of Accidents (2009–2012)",
+#       x = "Month",
+#       y = "Accidents"
+#     ) +
+#     theme_minimal(base_family = "Helvetica") +
+#     theme(
+#       text = element_text(color = "#1d1d1f"),
+#       plot.title = element_text(size = 18, face = "bold", hjust = 0.5, margin = margin(b = 15)),
+#       plot.subtitle = element_text(size = 14, hjust = 0.5, color = "#86868b", margin = margin(b = 15)),
+#       axis.title = element_text(size = 14, face = "bold"),
+#       axis.text = element_text(size = 12),
+#       axis.text.x = element_text(size = 10, vjust = 0.6),
+#       panel.grid.minor.x = element_blank(),
+#       legend.position = "bottom",
+#       legend.text = element_text(size = 12)
+#     ),
+#   filename = "03_temporal_monthly_peaks.jpg",
+#   subtitle = "Monthly evolution of accidents with peaks"
+# )
 
-save_plot(
-  df %>%
-    distinct(Accident_ID, DayOfWeek, Hour) %>%
-    count(DayOfWeek, Hour) %>%
-    ggplot(aes(x = Hour, y = fct_rev(DayOfWeek), fill = n)) + # fct_rev to order days correctly
-    geom_tile(color = "white") + # Create tiles, with white borders
-    scale_x_continuous( # Custom x-axis for hours
-      breaks = hour_breaks,
-      labels = sprintf("%02d:00", hour_breaks) # Format as HH:00
-    ) +
-    scale_fill_gradient(low = "white", high = colors[2]) + # Color gradient for density
-    labs(
-      title = "Accident Density: Hour vs Day",
-      x = "Hour",
-      y = "Day of Week",
-      fill = "Accidents"
-    ) +
-    guides(fill = guide_colorbar(barwidth = 10, barheight = 2)) + # Horizontal color bar
-    theme(
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 10), # Rotate x-axis labels
-      legend.title = element_text(size = 16),
-      legend.text = element_text(size = 10)
-    ),
-  "04_temporal_heatmap.jpg",
-  subtitle = "Timeslots during the week when most accidents occur"
-)
+# # 4. Accident Density Heatmap: Hour vs Day
+# # Heatmap visualizing accident density across hours and days of the week.
+# hour_breaks <- seq(0, 22, by = 2)
+
+# save_plot(
+#   df %>%
+#     distinct(Accident_ID, DayOfWeek, Hour) %>%
+#     count(DayOfWeek, Hour) %>%
+#     ggplot(aes(x = Hour, y = fct_rev(DayOfWeek), fill = n)) +
+#     geom_tile(color = "white") +
+#     scale_x_continuous(
+#       breaks = hour_breaks,
+#       labels = sprintf("%02d:00", hour_breaks)
+#     ) +
+#     scale_fill_gradient(low = "white", high = colors[2]) +
+#     labs(
+#       title = "Accident Density: Hour vs Day",
+#       x = "Hour",
+#       y = "Day of Week",
+#       fill = "Accidents"
+#     ) +
+#     guides(fill = guide_colorbar(barwidth = 10, barheight = 2)) +
+#     theme(
+#       axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+#       legend.title = element_text(size = 16),
+#       legend.text = element_text(size = 10)
+#     ),
+#   "04_temporal_heatmap.jpg",
+#   subtitle = "Timeslots during the week when most accidents occur"
+# )
 
 
-# 5. Geographic Distribution of Accidents (Density Map)
-# A density map of accident locations, faceted by urban/rural setting, with a basemap.
+# # 5. Geographic Distribution of Accidents (Density Map)
+# # A density map of accident locations, faceted by urban/rural setting, with a basemap.
 
-# Prepare spatial data: unique accidents only, filter out NA and outside-France coordinates.
-plot20_data <- df %>%
-  distinct(Accident_ID, lat, long, Location) %>%
-  filter(!is.na(lat), !is.na(long), between(lat, 41, 52), between(long, -5, 10))
+# # Prepare spatial data: unique accidents only, filtering out NA and out-of-France coordinates.
+# plot20_data <- df %>%
+#   distinct(Accident_ID, lat, long, Location) %>%
+#   filter(!is.na(lat), !is.na(long), between(lat, 41, 52), between(long, -5, 10))
 
-if (nrow(plot20_data) > 0) { # Proceed only if there's data to plot
-  plot20_sf <- st_as_sf(plot20_data, coords = c("long", "lat"), crs = 4326) # Convert to sf object
-  
-  # Fetch elegant basemap tiles from CartoDB Positron.
-  france_map_tiles <- get_tiles(st_bbox(plot20_sf), provider = "CartoDB.Positron", zoom = 7)
-  
-  # Create the map plot
-  france_map_plot <- ggplot(plot20_data, aes(x = long, y = lat)) +
-    geom_spatraster_rgb(data = france_map_tiles) + # Add basemap tiles
-    stat_density_2d( # 2D density estimation for accident hotspots
-      aes(fill = after_stat(level)),
-      geom = "polygon",
-      alpha = 0.6,
-      bins = 30
-    ) +
-    scale_fill_gradientn( # Color gradient for density, from light to dark red
-      colors = c("#FF6F61", "#E53935", "#C62828", "#A80000", "#8B0000"),
-      name = "Accident Density"
-    ) +
-    guides(fill = guide_colorbar( # Color bar for density
-      barwidth = 10,
-      barheight = 2
-    )) +
-    facet_wrap(~ Location) + # Facet by urban/rural location
-    labs(
-      title = "Geographic Distribution of Accidents",
-      subtitle = "Density map of accident locations by urban/rural setting",
-      x = "Longitude",
-      y = "Latitude"
-    ) +
-    theme(
-      legend.position = "right",
-      strip.text = element_text(size = 13, face = "bold")
-    )
-  
-  # Save the plot using the standardized save_plot function
-  save_plot(
-    france_map_plot,
-    "05_temporal_map.jpg",
-    width = 14,
-    height = 8,
-    subtitle = "Density map of accident locations by urban/rural setting"
-  )
-}
+# if (nrow(plot20_data) > 0) {
+#   plot20_sf <- st_as_sf(plot20_data, coords = c("long", "lat"), crs = 4326)
 
+#   # Fetch basemap tiles from CartoDB Positron.
+#   france_map_tiles <- get_tiles(st_bbox(plot20_sf), provider = "CartoDB.Positron", zoom = 7)
+
+#   # Create the map plot
+#   france_map_plot <- ggplot(plot20_data, aes(x = long, y = lat)) +
+#     geom_spatraster_rgb(data = france_map_tiles) +
+#     stat_density_2d(
+#       aes(fill = after_stat(level)),
+#       geom = "polygon",
+#       alpha = 0.6,
+#       bins = 30
+#     ) +
+#     scale_fill_gradientn(
+#       colors = c("#FF6F61", "#E53935", "#C62828", "#A80000", "#8B0000"),
+#       name = "Accident Density"
+#     ) +
+#     guides(fill = guide_colorbar(
+#       barwidth = 10,
+#       barheight = 2
+#     )) +
+#     facet_wrap(~ Location) +
+#     labs(
+#       title = "Geographic Distribution of Accidents",
+#       subtitle = "Density map of accident locations by urban/rural setting",
+#       x = "Longitude\n",
+#       y = "\nLatitude"
+#     ) +
+#     theme(
+#       legend.position = "right",
+#       strip.text = element_text(size = 13, face = "bold")
+#     )
+
+#   # Save the plot using the standardized save_plot function
+#   save_plot(
+#     france_map_plot,
+#     "05_temporal_map.jpg",
+#     width = 14,
+#     height = 8,
+#     subtitle = "Density map of accident locations by urban/rural setting"
+#   )
+# }
+
+# --- Actively Used Static Plot Generation Code ---
+# This section is reserved for code that generates static plots currently in use.
+# 
 
 # 6. Accidents by Gender and Category
 save_plot(
@@ -372,18 +383,19 @@ save_plot(
     scale_fill_manual(values = colors[c(16, 9)]) +
     labs(
       title = "Accidents by Gender and Category",
-      x = "Accident Category",
-      y = "Accident Count",
+      x = "\nVictim Category",
+      y = "",
       fill = "Gender"
     ) +
     design_theme() +
     theme(axis.text.x = element_text(angle = 30, hjust = 1)),
   "06_demo_gender_category.jpg",
-  subtitle = "Gender distribution of accident participants per category"
+  subtitle = "Gender distribution of accident participants per category",
+  remove_y_labels = TRUE
 )
 
 
-# 7. Driver Age Distribution by Category and Sex
+# 7. Driver Age Distribution by Category and Gender
 save_plot(
   df %>%
     filter(between(Age,0,100),!is.na(Category), !is.na(Sex)) %>%
@@ -392,14 +404,14 @@ save_plot(
     facet_wrap(~ Category, scales = "free_y") +
     scale_fill_manual(values = colors[c(16, 9)]) +
     labs(
-      title = "Driver Age Distribution by Category and Sex",
-      x = "Driver Age",
-      y = "Count",
+      title = "Driver Age Distribution by Category and Gender",
+      x = "\nDriver Age",
+      y = "",
       fill = "Gender"
     ) +
     design_theme(),
   "07_demo_age_hist_by_category_sex.jpg",
-  subtitle = "Age distribution of accident participants by gender and category"
+  subtitle = "Age distribution of accident participants by gender and category",
 )
 
 
@@ -407,27 +419,18 @@ save_plot(
 # 8. Age by Day of Week (Violin Plot)
 # Violin plot showing the distribution of ages across different days of the week.
 save_plot(
-  df %>% filter(between(Age,0,100),!is.na(Age)) %>%
+  df %>% filter(between(Age, 0, 100), !is.na(Age)) %>%
     ggplot(aes(x = DayOfWeek, y = Age, fill = DayOfWeek)) +
     geom_violin(trim = TRUE, alpha = 0.7) + # Violin plot showing density
     geom_boxplot(width = 0.1, outlier.shape = NA, alpha = 0.6, color = "black") + # Overlay boxplot (no outliers)
     scale_fill_manual(values = colors[1:7]) + # Fill colors for each day
-    labs(title = "Age by Day of Week", x = "Day of Week", y = "Age", fill = "Day"),
+    labs(title = "Age by Day of Week", x = "", y = "Age", fill = "Day of Week") +
+    theme(axis.text.x = element_blank()), # Remove x-axis text labels
   "08_demo_violin_age_day.jpg",
-  subtitle = "How age varies across different weekdays"
+  subtitle = "How age varies across different weekdays",
+  remove_x_labels = TRUE
 )
 
-# 9. Age by Hour of Day (Ridgeline Plot)
-# Ridgeline plot illustrating the distribution of driver ages at each hour of the day.
-save_plot(
-  df %>% filter(between(Age,0,100),!is.na(Age)) %>%
-    ggplot(aes(Age, factor(Hour), fill = stat(x))) + # Fill based on age value
-    geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01, alpha = 0.8) + # Ridgeline density plot
-    scale_fill_gradient(low = colors[2], high = colors[1]) + # Gradient fill from red to blue
-    labs(title = "Age by Hour of Day", x = "Age", y = "Hour", fill = "Density"),
-  "09_demo_ridgeline_age_hour.jpg",
-  subtitle = "Driver age distributions at each hour"
-)
 
 # --- Waffle Plot Save Function ---
 # Custom function for saving waffle plots, applying a similar theme.
@@ -507,10 +510,33 @@ save_plot(
     geom_segment(aes(xend = 0, yend = `Lighting Conditions`), color = colors[5], size = 1.2) + # Segments from y-axis
     geom_point(color = colors[5], size = 5) + # Points at the end of segments
     geom_text(aes(label = scales::comma(n)), vjust = -1.2, color = "gray30", size = 5.5) + # Count labels
-    labs(title = "Lighting in Accidents", x = "Count", y = "Lighting Type"),
+    labs(title = "Lighting in Accidents", x = "", y = ""),
   "11_cond_lighting.jpg",
-  subtitle = "Accidents under various lighting conditions"
+  subtitle = "Accidents under various lighting conditions",
+  remove_x_labels = TRUE
 )
+
+# Helper to move NA last and label as 'Missing'
+# Sort by count (ascending) but push "Missing" (NA) last
+prepare_factor_sorted_asc <- function(df, col, n_col = n) {
+  col_sym <- rlang::ensym(col)
+  n_sym <- rlang::ensym(n_col)
+  
+  df <- df %>%
+    mutate(!!col_sym := fct_na_value_to_level(!!col_sym, level = "Missing"))
+  
+  # Separate missing and non-missing values
+  df_missing <- df %>% filter(!!col_sym == "Missing")
+  df_non_missing <- df %>%
+    filter(!!col_sym != "Missing") %>%
+    mutate(!!col_sym := fct_reorder(!!col_sym, !!n_sym, .desc = FALSE))
+  
+  # Recombine, with 'Missing' added last
+  bind_rows(df_non_missing, df_missing) %>%
+    mutate(!!col_sym := fct_relevel(!!col_sym, "Missing", after = Inf))
+}
+
+
 
 
 # 12. Surface Conditions
@@ -518,15 +544,24 @@ save_plot(
 save_plot(
   df %>%
     distinct(Accident_ID, `Surface Condition`) %>%
+    mutate(`Surface Condition` = replace_na(`Surface Condition`, "Missing")) %>%
     count(`Surface Condition`) %>%
-    ggplot(aes(x = n, y = fct_reorder(`Surface Condition`, n))) + # Reorder by count
+    arrange(n) %>%
+    mutate(`Surface Condition` = factor(`Surface Condition`, levels = `Surface Condition`)) %>%
+    ggplot(aes(x = n, y = `Surface Condition`)) +
     geom_segment(aes(xend = 0, yend = `Surface Condition`), color = colors[3], size = 1.2) +
     geom_point(color = colors[3], size = 5) +
     geom_text(aes(label = scales::comma(n)), vjust = -1.2, color = "gray30", size = 5.5) +
-    labs(title = "Surface Conditions", x = "Count", y = "Condition"),
+    labs(title = "Surface Conditions", x = "", y = "")+
+    theme(axis.text.x = element_blank()),
   "12_cond_surface.jpg",
-  subtitle = "Distribution of road surface states"
+  subtitle = "Distribution of road surface states",
+  remove_x_labels = TRUE
 )
+
+
+
+
 
 
 # 13. Holiday Accidents
@@ -552,13 +587,15 @@ save_plot(
     scale_fill_manual(values = holiday_colors) + # Custom fill colors
     labs(
       title = "Holiday Accidents",
-      x = "Count",
-      y = "Holiday"
+      x = "",
+      y = "",
+      fill = "Holiday"
     ) +
     theme(legend.position = "none") + # No legend
     expand_limits(x = max(holiday_counts$n) * 1.08),  # Prevent label cutoff
   "13_cond_holiday.jpg",
-  subtitle = "Accidents reported during public holidays"
+  subtitle = "Accidents reported during public holidays",
+  remove_x_labels = TRUE,
 )
 
 # 14. Infrastructure Involvement
@@ -566,19 +603,21 @@ save_plot(
 save_plot(
   df %>%
     distinct(Accident_ID, Infrastructure) %>%
+    mutate(Infrastructure = replace_na(Infrastructure, "Missing")) %>%
     count(Infrastructure) %>%
-    ggplot(aes(x = n, y = fct_reorder(Infrastructure, n))) +
-    geom_segment(aes(xend = 0, yend = fct_reorder(Infrastructure, n)), color = colors[6], size = 1.2) +
+    arrange(n) %>%
+    mutate(Infrastructure = factor(Infrastructure, levels = Infrastructure)) %>%
+    ggplot(aes(x = n, y = Infrastructure)) +
+    geom_segment(aes(xend = 0, yend = Infrastructure), color = colors[6], size = 1.2) +
     geom_point(color = colors[6], size = 5) +
     geom_text(aes(label = scales::comma(n)), vjust = -1.2, color = "gray30", size = 5.5) +
-    labs(
-      title = "Infrastructure Involvement",
-      x = "Accident Count",
-      y = "Type"
-    ),
+    labs(title = "Infrastructure Involvement", x = "", y = "")
+  ,
   "14_cond_infra.jpg",
-  subtitle = "Accidents involving different infrastructure types"
+  subtitle = "Accidents involving different infrastructure types",
+  remove_x_labels = TRUE
 )
+
 
 
 # 15. Accidents by Road Type (Treemap)
@@ -604,20 +643,26 @@ save_plot(
   subtitle = "Relative share of accidents by road type"
 )
 
+severity_order <- c("Unharmed", "Minor Injury", "Hospitalized Injury", "Killed")
+
 
 # 16. Injury Severity Distribution
 # Dot plot showing the count of accidents for each injury severity level.
 save_plot(
-  df %>% count(`Injury Severity`) %>%
-    ggplot(aes(x = n, y = fct_reorder(`Injury Severity`, n), color = `Injury Severity`)) + # Reorder and color by severity
-    geom_segment(aes(xend = 0, yend = fct_reorder(`Injury Severity`, n)), size = 1.2) +
+  df %>%
+    count(`Injury Severity`) %>%
+    mutate(`Injury Severity` = factor(`Injury Severity`, levels = rev(severity_order))) %>%
+    ggplot(aes(x = n, y = `Injury Severity`, color = `Injury Severity`)) + # now no need for fct_reorder
+    geom_segment(aes(xend = 0, yend = `Injury Severity`), size = 1.2) +
     geom_point(size = 5) +
     geom_text(aes(label = scales::comma(n)), vjust = -1.2, color = "gray30", size = 5.5) +
-    scale_color_manual(values = injury_colors) + # Use predefined injury colors
-    labs(title = "Injury Severity Distribution", x = "Count", y = "Severity", color = "Injury Severity"),
+    scale_color_manual(values = injury_colors, breaks = severity_order) + # force legend order
+    labs(title = "Injury Severity Distribution", x = "", y = "", color = "Injury Severity"),
   "16_outcomes_severity.jpg",
-  subtitle = "Severity levels recorded in accident reports"
+  subtitle = "Severity levels recorded in accident reports",
+  remove_x_labels = TRUE
 )
+
 
 # --- 17a. Severity by Lighting Condition (Final Bubble Plot with Labels) ---
 # Bubble plot showing injury severity under surface conditions.
@@ -626,17 +671,18 @@ save_plot(
 save_plot(
   ggplot(df %>%
            filter(!is.na(`Lighting Conditions`), !is.na(`Injury Severity`)) %>%
-           count(`Lighting Conditions`, `Injury Severity`),
+           count(`Lighting Conditions`, `Injury Severity`) %>%
+           mutate(`Injury Severity` = factor(`Injury Severity`, levels = rev(severity_order))),
          aes(x = fct_infreq(`Lighting Conditions`), y = `Injury Severity`, size = n, color = `Injury Severity`)) +
     geom_point(alpha = 0.7) +  # Bubbles
     geom_text(aes(label = n), size = 5, color = "gray50", vjust = -3) +  # Labels above bubbles
-    scale_color_manual(values = injury_colors) +  # Custom color for severity
+    scale_color_manual(values = injury_colors, breaks = severity_order) +  # Custom color + enforced legend order
     scale_size_continuous(range = c(5, 25), guide = "none") +  # Bigger bubbles, no size legend
     labs(
       title = "Severity by Lighting Conditions",
-      x = "Lighting Conditions",
-      y = "Injury Severity",
-      color = "Severity"
+      x = "",
+      y = "",
+      color = "Injury Severity"
     ) +
     theme_minimal(base_family = "Helvetica") +
     theme(
@@ -658,17 +704,18 @@ save_plot(
 save_plot(
   ggplot(df %>%
            filter(!is.na(`Surface Condition`), !is.na(`Injury Severity`)) %>%
-           count(`Surface Condition`, `Injury Severity`),
+           count(`Surface Condition`, `Injury Severity`) %>%
+           mutate(`Injury Severity` = factor(`Injury Severity`, levels = rev(severity_order))),
          aes(x = fct_infreq(`Surface Condition`), y = `Injury Severity`, size = n, color = `Injury Severity`)) +
     geom_point(alpha = 0.7) +  # Bubbles
     geom_text(aes(label = n), size = 5, color = "gray50", vjust = -3) +  # Labels above bubbles
-    scale_color_manual(values = injury_colors) +  # Custom color for severity
+    scale_color_manual(values = injury_colors, breaks = severity_order) +  # Force legend order
     scale_size_continuous(range = c(5, 25), guide = "none") +  # Bigger bubbles, no size legend
     labs(
       title = "Severity by Surface Condition",
-      x = "Surface Condition",
-      y = "Injury Severity",
-      color = "Severity"
+      x = "",
+      y = "",
+      color = "Injury Severity"
     ) +
     theme_minimal(base_family = "Helvetica") +
     theme(
@@ -684,14 +731,22 @@ save_plot(
 # 18. Age by Injury Severity (Ridgeline Plot)
 # Ridgeline plot showing age distributions for each injury severity level.
 save_plot(
-  df %>% filter(between(Age,0,100),!is.na(Age), !is.na(`Injury Severity`)) %>%
+  df %>%
+    filter(between(Age, 0, 100), !is.na(Age), !is.na(`Injury Severity`)) %>%
+    mutate(`Injury Severity` = factor(`Injury Severity`, levels = rev(severity_order))) %>%
     ggplot(aes(x = Age, y = `Injury Severity`, fill = `Injury Severity`)) +
-    geom_density_ridges(scale = 2, alpha = 0.7, color = "white", size = 0.3) + # Ridgeline density plot
-    scale_fill_manual(values = injury_colors) + # Use predefined injury colors for fill
-    labs(title = "Age by Injury Severity", x = "Age", y = "Severity", fill = "Injury Severity"),
+    geom_density_ridges(scale = 2, alpha = 0.7, color = "white", size = 0.3) +  # Ridgeline density plot
+    scale_fill_manual(values = injury_colors, breaks = severity_order) +       # Ordered legend
+    labs(
+      title = "Age by Injury Severity",
+      x = "",
+      y = "",
+      fill = "Injury Severity"
+    ),
   "18_outcomes_ridge_age.jpg",
   subtitle = "Distribution of injury types across ages"
 )
+
 
 # 19. Severity by Vehicle Category (Stacked Bar Chart)
 # Stacked bar chart showing the proportion of different injury severities per vehicle type.
@@ -699,70 +754,85 @@ save_plot(
   df %>%
     filter(!is.na(`Vehicle Category`), !is.na(`Injury Severity`)) %>%
     count(`Vehicle Category`, `Injury Severity`) %>%
+    mutate(`Injury Severity` = factor(`Injury Severity`, levels = rev(severity_order))) %>%
     group_by(`Vehicle Category`) %>%
-    mutate(prop = n / sum(n)) %>% # Calculate proportion within each vehicle category
+    mutate(prop = n / sum(n)) %>%
     ggplot(aes(x = `Vehicle Category`, y = prop, fill = `Injury Severity`)) +
-    geom_bar(stat = "identity", position = "fill") + # Stacked bar, normalized to 1 (proportion)
-    scale_fill_manual(values = injury_colors) + # Use predefined injury colors
+    geom_bar(stat = "identity", position = "fill") +
+    scale_fill_manual(values = injury_colors, breaks = severity_order) +  # enforce legend order
     labs(
       title = "Severity by Vehicle Category",
-      x = "Vehicle Type",
-      y = "Proportion",
+      x = "",
+      y = "",
       fill = "Injury Severity"
     ) +
-    scale_x_discrete( # Wrap long vehicle category labels and angle them
+    scale_x_discrete(
       labels = function(x) stringr::str_wrap(x, width = 25),
       guide = guide_axis(angle = 45)
     ),
   filename = "19_outcomes_vehicle_severity.jpg",
-  subtitle = "Proportion of severity per vehicle type"
+  subtitle = "Stacked bar plot showing the proportion of severity per vehicle type"
 )
 
 # 20. Equipment Usage
 # Dot plot showing the frequency of different safety equipment usage types in accidents.
 save_plot(
-  df %>% count(`Equipment Usage`) %>%
-    ggplot(aes(x = n, y = fct_reorder(`Equipment Usage`, n))) +
+  df %>%
+    mutate(`Equipment Usage` = replace_na(`Equipment Usage`, "Missing")) %>%
+    count(`Equipment Usage`) %>%
+    arrange(n) %>%
+    mutate(`Equipment Usage` = factor(`Equipment Usage`, levels = `Equipment Usage`)) %>%
+    ggplot(aes(x = n, y = `Equipment Usage`)) +
     geom_segment(aes(xend = 0, yend = `Equipment Usage`), color = colors[5], size = 1.2) +
     geom_point(color = colors[5], size = 5) +
     geom_text(aes(label = scales::comma(n)), vjust = -1.2, color = "gray30", size = 5.5) +
-    labs(title = "Safety Equipment Usage", x = "Count", y = "Usage Type"),
+    labs(title = "Safety Equipment Usage", x = "", y = ""),
   "20_behavior_equipment.jpg",
-  subtitle = "Frequency of safety equipment usage"
+  subtitle = "Frequency of safety equipment usage",
+  remove_x_labels = TRUE
 )
+
 
 # 21. Travel Purpose
 # Dot plot showing accident counts by reported reason for travel.
 save_plot(
-  df %>% count(`Travel Reason`) %>%
-    ggplot(aes(x = n, y = fct_reorder(`Travel Reason`, n))) +
+  df %>%
+    mutate(`Travel Reason` = replace_na(`Travel Reason`, "Missing")) %>%
+    count(`Travel Reason`) %>%
+    arrange(n) %>%
+    mutate(`Travel Reason` = factor(`Travel Reason`, levels = `Travel Reason`)) %>%
+    ggplot(aes(x = n, y = `Travel Reason`)) +
     geom_segment(aes(x = 0, xend = n, y = `Travel Reason`, yend = `Travel Reason`),
                  color = colors[4], size = 1.2) +
     geom_point(color = colors[4], size = 5) +
     geom_text(aes(label = scales::comma(n)), vjust = -1.2, color = "gray30", size = 5.5) +
-    labs(title = "Travel Purpose", x = "Count", y = "Reason"),
+    labs(title = "Travel Purpose", x = "", y = ""),
   "21_behavior_travel.jpg",
-  subtitle = "Reported reason for travel during accident"
+  subtitle = "Reported reason for travel during accident",
+  remove_x_labels = TRUE
 )
+
+
 
 # 22. Collision Types
 # Dot plot showing the distribution of different types of collisions.
 save_plot(
   df %>%
     distinct(Accident_ID, `Type of collision`) %>%
+    mutate(`Type of collision` = replace_na(`Type of collision`, "Missing")) %>%
     count(`Type of collision`) %>%
-    ggplot(aes(x = n, y = fct_reorder(`Type of collision`, n))) +
+    arrange(n) %>%
+    mutate(`Type of collision` = factor(`Type of collision`, levels = `Type of collision`)) %>%
+    ggplot(aes(x = n, y = `Type of collision`)) +
     geom_segment(aes(xend = 0, yend = `Type of collision`), color = colors[6], size = 1.2) +
     geom_point(color = colors[6], size = 5) +
     geom_text(aes(label = scales::comma(n)), vjust = -1.2, color = "gray30", size = 5.5) +
-    labs(
-      title = "Collision Types",
-      x = "Accident Count",
-      y = "Type"
-    ),
+    labs(title = "Collision Types", x = "", y = ""),
   "22_behavior_collision.jpg",
-  subtitle = "Distribution of collision types"
+  subtitle = "Distribution of collision types",
+  remove_x_labels = TRUE
 )
+
 
 
 # 23. Vehicles Involved
@@ -770,14 +840,19 @@ save_plot(
 save_plot(
   df %>%
     distinct(Accident_ID, `Vehicle Category`) %>%
+    mutate(`Vehicle Category` = replace_na(`Vehicle Category`, "Missing")) %>%
     count(`Vehicle Category`) %>%
-    ggplot(aes(x = n, y = fct_reorder(`Vehicle Category`, n))) +
-    geom_col(fill = colors[1]) + # Column chart
-    geom_text(aes(label = scales::comma(n)), hjust = -0.08, color = "gray30", size = 3.5) + # Count labels
-    labs(title = "Vehicles Involved", x = "Count", y = "Vehicle Type"),
+    arrange(n) %>%
+    mutate(`Vehicle Category` = factor(`Vehicle Category`, levels = `Vehicle Category`)) %>%
+    ggplot(aes(x = n, y = `Vehicle Category`)) +
+    geom_col(fill = colors[1]) +
+    geom_text(aes(label = scales::comma(n)), hjust = -0.08, color = "gray30", size = 3.5) +
+    labs(title = "Vehicles Involved", x = "", y = ""),
   "23_behavior_vehicle.jpg",
-  subtitle = "Types of vehicles involved in incidents"
+  subtitle = "Types of vehicles involved in incidents",
+  remove_x_labels = TRUE
 )
+
 
 
 # 24. Injury Severity by Safety Equipment Usage (Stacked Bar Chart)
@@ -786,15 +861,16 @@ save_plot(
   df %>%
     filter(!is.na(`Injury Severity`), !is.na(`Equipment Usage`)) %>%
     count(`Equipment Usage`, `Injury Severity`) %>%
+    mutate(`Injury Severity` = factor(`Injury Severity`, levels = rev(severity_order))) %>%  # Set factor levels
     group_by(`Equipment Usage`) %>%
-    mutate(prop = n / sum(n)) %>% # Calculate proportion within each equipment usage category
+    mutate(prop = n / sum(n)) %>%
     ggplot(aes(x = `Equipment Usage`, y = prop, fill = `Injury Severity`)) +
-    geom_bar(stat = "identity", position = "fill") + # Stacked bar, normalized to 1
-    scale_fill_manual(values = injury_colors) + # Use predefined injury colors
+    geom_bar(stat = "identity", position = "fill") + # Stacked bar
+    scale_fill_manual(values = injury_colors, breaks = severity_order) +  # Ordered fill
     labs(
       title = "Injury Severity by Safety Equipment Usage",
-      x = "Equipment Usage",
-      y = "Proportion of Accidents",
+      x = "",
+      y = "",
       fill = "Injury Severity"
     ),
   "24_equipment_vs_severity.jpg",
@@ -807,10 +883,24 @@ message("All static plots generated.")
 
 # --- Animated Plot Section (Adjusted for Unique Accident IDs) ---
 
-# Load required libraries for animations.
-library(gganimate) # For creating animations with ggplot2
-library(gifski)    # A GIF renderer for gganimate
-library(av)        # An alternative video renderer for gganimate
+# Load required libraries for data manipulation, visualization, and animations.
+
+# Core Tidyverse packages
+library(ggplot2)    # For creating static and animated plots
+library(dplyr)      # For data manipulation (e.g., %>% for piping, distinct, count, mutate, filter)
+library(lubridate)  # For easy manipulation of date-time objects (e.g., floor_date, year, month)
+library(forcats)    # For handling factor variables (e.g., fct_rev)
+
+# Animation specific packages
+library(gganimate)  # Extends ggplot2 for creating animations
+library(gifski)     # GIF renderer for gganimate
+library(av)         # Video renderer for gganimate
+
+# Spatial data packages
+library(sf)         # Simple Features for spatial data
+library(stars)      # Spatiotemporal Arrays, Raster, and Vector data cubes (required for spatial raster data handling)
+library(terra)      # Modern R package for spatial data analysis (often used with stars or as an alternative to raster)
+library(ggspatial)  # Provides 'geom_spatial_*' functions for adding spatial elements and basemaps to ggplot2
 
 # --- Global Animation Settings ---
 fps <- 30         # Frames per second for animations
@@ -818,7 +908,7 @@ end_pause <- 15   # Duration (in seconds) to pause at the final frame
 width <- 14       # Width of the animation output
 height <- 8       # Height of the animation output
 res <- 300        # Resolution (DPI) for the animation
-gif_dir <-"C:/Users/steli/Stelios/DS AUEB/Trimester 3/Data Visualization/Project 2/FranceRoadAccidents/R plots/gifs"# Directory to save GIF outputs
+gif_dir <- "C:/Users/steli/Stelios/Data Science AUEB/Course Material/Trimester 3/Data Visualization/Project 2/FranceRoadAccidents/R Plots/gifs"
 dir.create(gif_dir, showWarnings = FALSE) # Create GIF directory if it doesn't exist
 
 # --- Source Caption for Animations ---
@@ -1003,7 +1093,7 @@ freeze_peaks <- map_dfr(seq_len(fps * end_pause), function(i) {
 
 peak_months_frozen <- bind_rows(peak_months, freeze_peaks)
 
-# --- NEW: Create a distinct set of MonthYear and month_label for axis breaks and labels ---
+# --- Create a distinct set of MonthYear and month_label for axis breaks and labels ---
 # This ensures that 'breaks' and 'labels' have the same length and correspond correctly.
 monthly_data_for_axes <- monthly_data_frozen %>%
   distinct(MonthYear, .keep_all = TRUE) %>% # Get unique MonthYear entries
@@ -1047,7 +1137,8 @@ animate(
   renderer = gifski_renderer(file.path(gif_dir, "03_temporal_monthly_animated.gif"))
 )
 
-# --- 4. Heatmap Animation ---
+# --- 4. Heatmap Animation (Hour vs Day) ---
+# Animates the density of accidents across hours of the day and days of the week, revealing data incrementally.
 day_levels <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 hour_breaks <- seq(0, 22, by = 2)
 
@@ -1095,5 +1186,61 @@ animate(
   renderer = gifski_renderer(file.path(gif_dir, "04_temporal_heatmap_animated.gif"))
 )
 
-message("All animated plots generated.")
+# --- 5. Geographic Distribution Animation (Prepare Data) ---
+# It animates the monthly geographic density of accidents.
+# --- Prepare Data ---
+plot20_data <- df %>%
+  distinct(Accident_ID, lat, long, Location, Date) %>%
+  filter(!is.na(lat), !is.na(long), between(lat, 41, 52), between(long, -5, 10)) %>%
+  mutate(MonthYear = floor_date(Date, "month")) %>%  # keep Date format
+  arrange(MonthYear) %>%
+  mutate(MonthYear = factor(MonthYear, levels = unique(MonthYear)))  # ensure correct chronological order
 
+# Convert to sf for spatial base
+plot20_sf <- st_as_sf(plot20_data, coords = c("long", "lat"), crs = 4326)
+
+# Download basemap tiles
+france_map_tiles <- get_tiles(st_bbox(plot20_sf), provider = "CartoDB.Positron", zoom = 7)
+
+# --- Create Animated Plot ---
+density_anim <- ggplot(plot20_data, aes(x = long, y = lat)) +
+  geom_spatraster_rgb(data = france_map_tiles) +  # Basemap
+  stat_density_2d(
+    aes(fill = after_stat(level)),
+    geom = "polygon",
+    bins = 30,
+    alpha = 0.6
+  ) +
+  scale_fill_gradientn(
+    colors = c("#FF6F61", "#E53935", "#C62828", "#A80000", "#8B0000"),
+    name = "Accident Density"
+  ) +
+  facet_wrap(~ Location) +
+  labs(
+    title = "Geographic Distribution of Accidents",
+    subtitle = "Monthly accident density by location — {format(as.Date(current_frame), '%b %Y')}",
+    caption = source_caption,
+    x = "Longitude\n",
+    y = "\nLatitude"
+  ) +
+  design_theme() +  # your custom theme
+  transition_manual(MonthYear) +  # Animate frame by MonthYear
+  ease_aes('cubic-in-out')
+
+# --- Animate and Save ---
+fps <- 3        # Slow enough for clarity
+end_pause <- 10  # Hold final frame
+width <- 14      # Inches
+height <- 8
+res <- 300       # DPI
+
+gganimate::animate(
+  density_anim,
+  fps = fps,
+  nframes = length(unique(plot20_data$MonthYear)) + end_pause,
+  width = width * res,
+  height = height * res,
+  res = res,
+  renderer = gganimate::gifski_renderer(file.path(gif_dir, "20_geographic_density_monthly.gif"))
+)
+message("All animated plots generated.")
