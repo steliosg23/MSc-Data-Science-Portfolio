@@ -64,7 +64,7 @@ This project introduces a complete data pipeline using real-time technologies.
 ## 📎 File Structure
 
 ```
-📁 LSDM Assignment 1 Report.pdf  # WordCount and Car Sales MapReduce project
-📁 LSDM Assignment 2 Report.pdf  # Kafka-Spark-Cassandra streaming pipeline
+📁 LSDM Assignment 1 Report  # WordCount and Car Sales MapReduce project
+📁 LSDM Assignment 2 Report  # Kafka-Spark-Cassandra streaming pipeline
 📁 README.md                    # This summary
 ```
