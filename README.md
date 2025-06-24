@@ -95,6 +95,16 @@ Focus: Natural Language Processing using both classic and deep learning models.
 
 ---
 
+### 📌 Data Science Challenge  
+Focus: Multi-label classification and graph mining on e-commerce product data.  
+- Challenge: Product classification into multiple categories based on descriptions and co-viewed product graphs  
+- Techniques: Text preprocessing, TF-IDF, LightGBM, BERT finetuning, and graph embedding strategies  
+- Tasks: Hazard and product classification, category inference, and model ensembling  
+- Evaluation: Macro F1-score across multiple label levels  
+- Tools: HuggingFace Transformers, LightGBM, NetworkX, Scikit-learn
+
+---
+
 ### 📌 Deep Learning Research Project  
 Focus: Deep learning for clinical audio diagnostics using respiratory sound data.  
 - Comparative study of CNN, ResNet50, and DenseNet121 architectures  
