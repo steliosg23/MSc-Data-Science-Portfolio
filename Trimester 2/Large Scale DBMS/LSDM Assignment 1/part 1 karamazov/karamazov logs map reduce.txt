@@ -1,0 +1,87 @@
+vagrant@vagrant:/vagrant/hadoop-mapreduce-examples$ docker cp /vagrant/hadoop-mapreduce-examples/target/hadoop-map-reduce-examples-1.0-SNAPSHOT-jar-with-dependencies.jar namenode:/
+Successfully copied 24.4MB to namenode:/
+vagrant@vagrant:/vagrant/hadoop-mapreduce-examples$  docker exec namenode hadoop jar /hadoop-map-reduce-examples-1.0-SNAPSHOT-jar-with-dependencies.jar
+2025-01-30 21:32:49,149 INFO client.RMProxy: Connecting to ResourceManager at resourcemanager/172.18.0.5:8032
+2025-01-30 21:32:49,517 INFO client.AHSProxy: Connecting to Application History server at historyserver/172.18.0.4:10200
+2025-01-30 21:32:50,138 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2025-01-30 21:32:50,529 INFO mapreduce.JobResourceUploader: Disabling Erasure Coding for path: /tmp/hadoop-yarn/staging/root/.staging/job_1738272391325_0001
+2025-01-30 21:32:50,729 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2025-01-30 21:32:51,210 INFO input.FileInputFormat: Total input files to process : 1
+2025-01-30 21:32:51,308 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2025-01-30 21:32:51,347 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2025-01-30 21:32:51,366 INFO mapreduce.JobSubmitter: number of splits:1
+2025-01-30 21:32:51,634 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2025-01-30 21:32:51,671 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1738272391325_0001
+2025-01-30 21:32:51,672 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2025-01-30 21:32:51,923 INFO conf.Configuration: resource-types.xml not found
+2025-01-30 21:32:51,924 INFO resource.ResourceUtils: Unable to find 'resource-types.xml'.
+2025-01-30 21:32:52,889 INFO impl.YarnClientImpl: Submitted application application_1738272391325_0001
+2025-01-30 21:32:53,023 INFO mapreduce.Job: The url to track the job: http://resourcemanager:8088/proxy/application_1738272391325_0001/
+2025-01-30 21:32:53,026 INFO mapreduce.Job: Running job: job_1738272391325_0001
+2025-01-30 21:33:08,580 INFO mapreduce.Job: Job job_1738272391325_0001 running in uber mode : false
+2025-01-30 21:33:08,593 INFO mapreduce.Job:  map 0% reduce 0%
+2025-01-30 21:33:18,819 INFO mapreduce.Job:  map 100% reduce 0%
+2025-01-30 21:33:25,909 INFO mapreduce.Job:  map 100% reduce 100%
+2025-01-30 21:33:25,924 INFO mapreduce.Job: Job job_1738272391325_0001 completed successfully
+2025-01-30 21:33:26,137 INFO mapreduce.Job: Counters: 54
+        File System Counters
+                FILE: Number of bytes read=140308
+                FILE: Number of bytes written=738909
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=2042118
+                HDFS: Number of bytes written=342397
+                HDFS: Number of read operations=8
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=2
+                HDFS: Number of bytes read erasure-coded=0
+        Job Counters
+                Launched map tasks=1
+                Launched reduce tasks=1
+                Rack-local map tasks=1
+                Total time spent by all maps in occupied slots (ms)=24776
+                Total time spent by all reduces in occupied slots (ms)=36152
+                Total time spent by all map tasks (ms)=6194
+                Total time spent by all reduce tasks (ms)=4519
+                Total vcore-milliseconds taken by all map tasks=6194
+                Total vcore-milliseconds taken by all reduce tasks=4519
+                Total megabyte-milliseconds taken by all map tasks=25370624
+                Total megabyte-milliseconds taken by all reduce tasks=37019648
+        Map-Reduce Framework
+                Map input records=37635
+                Map output records=360406
+                Map output bytes=3445554
+                Map output materialized bytes=140300
+                Input split bytes=115
+                Combine input records=360406
+                Combine output records=29994
+                Reduce input groups=29994
+                Reduce shuffle bytes=140300
+                Reduce input records=29994
+                Reduce output records=29994
+                Spilled Records=59988
+                Shuffled Maps =1
+                Failed Shuffles=0
+                Merged Map outputs=1
+                GC time elapsed (ms)=174
+                CPU time spent (ms)=2970
+                Physical memory (bytes) snapshot=347836416
+                Virtual memory (bytes) snapshot=13150445568
+                Total committed heap usage (bytes)=230821888
+                Peak Map Physical memory (bytes)=226885632
+                Peak Map Virtual memory (bytes)=4955017216
+                Peak Reduce Physical memory (bytes)=120950784
+                Peak Reduce Virtual memory (bytes)=8195428352
+        Shuffle Errors
+                BAD_ID=0
+                CONNECTION=0
+                IO_ERROR=0
+                WRONG_LENGTH=0
+                WRONG_MAP=0
+                WRONG_REDUCE=0
+        File Input Format Counters
+                Bytes Read=2042003
+        File Output Format Counters
+                Bytes Written=342397
+vagrant@vagrant:/vagrant/hadoop-mapreduce-examples$

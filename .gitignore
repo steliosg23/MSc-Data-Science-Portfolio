@@ -1,0 +1,11 @@
+*.csv
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.log
+.DS_Store
+Thumbs.db
+__pycache__/
+.ipynb_checkpoints/
+*.bak

@@ -1,0 +1,15 @@
+CREATE KEYSPACE IF NOT EXISTS netflix WITH REPLICATION = {'class' : 'SimpleStrategy', 'replication_factor' : 1};
+CREATE TABLE IF NOT EXISTS netflix.movie_ratings (
+   id UUID,
+   name TEXT,  -- Partition key
+   timestamp TIMESTAMP,  -- Clustering column
+   show_id TEXT,
+   movie TEXT,
+   rating_movie INT,
+   duration INT,
+   rating TEXT,
+   release_year INT,
+   director TEXT,
+   country TEXT,
+   PRIMARY KEY (name, timestamp, id)  -- Partition key is `name`, clustering key is `timestamp`
+) WITH CLUSTERING ORDER BY (timestamp DESC);
