@@ -1,7 +1,4 @@
 # 📊 Data Visualization and Communication  
-**MSc in Data Science – AUEB**  
-**Student:** Stylianos Giagkos (f3352410)
-
 ---
 
 ## 📝 Course Overview
