@@ -6,7 +6,7 @@ Welcome to my academic portfolio from the MSc in Data Science at the Athens Univ
 
 # 🎓 MSc in Data Science – Academic Portfolio  
 **Athens University of Economics and Business (2024–2025)**  
-**Author:** Stylianos Giagkos (f3352410)
+**Author:** Stylianos Giagkos 
 
 ---
 
