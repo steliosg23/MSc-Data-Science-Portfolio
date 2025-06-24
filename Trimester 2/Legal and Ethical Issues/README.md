@@ -27,3 +27,12 @@ This project focuses on the **Cambridge Analytica scandal**, a landmark case in 
 ## 📌 Conclusions
 
 The report concludes that **data science must be applied responsibly**, with emphasis on transparency, privacy, and democratic integrity. The Cambridge Analytica scandal is a turning point that highlights the urgent need for **ethical accountability**, **regulatory enforcement**, and **public literacy** in the age of big data.
+
+---
+
+## 📚 Authors
+
+- **Stylianos Giagkos** ([@steliosg23](https://github.com/steliosg23))  
+- **Nikolaos Vitsentzatos**
+
+---
