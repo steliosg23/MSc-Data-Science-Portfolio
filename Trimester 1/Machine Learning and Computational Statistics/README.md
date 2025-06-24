@@ -74,7 +74,7 @@ This repository contains a comprehensive set of homework assignments and a final
 - **Data:** Hyperspectral image cube of 220×120×204 resolution with labeled regions.
 - **Tasks:**
   - Spectral unmixing using 5 methods (LS, constrained LS, LASSO)
-  - Classification using SVM, k-NN, and random forest
+  - Classification using Naive Bayes,Euclidean Distance Classifier,K-NN,Bayesian (QDA)
   - Accuracy evaluation, confusion matrices, and visual inspection of unmixing maps
 - **Tools:** `numpy`, `scipy`, `matplotlib`, `scikit-learn`, `spectral`, `cvxpy`
 
