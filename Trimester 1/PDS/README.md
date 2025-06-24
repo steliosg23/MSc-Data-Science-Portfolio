@@ -69,14 +69,3 @@ This project revolved around image data analysis and urban feature detection usi
 - Created map visualizations of cluster distributions across cities
 
 ---
-
-## 📎 File Structure
-
-```
-📁 Project A1.pdf         # Feature engineering and EDA
-📁 Project A2 README.md   # Food Hazard Detection NLP Challenge
-📁 Project A3.pdf         # Clustering and image analysis
-📁 README.md              # This file
-```
-
----
