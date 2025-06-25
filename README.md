@@ -190,7 +190,7 @@ Focus: Visual storytelling through static, animated, and interactive dashboards
 
 This portfolio showcases the work completed during my MSc in Data Science program at AUEB, highlighting my practical application of data science methodologies across various projects. These projects reflect my ability to integrate cross-disciplinary knowledge and utilize advanced tools to tackle complex data-related challenges.
 
-While the majority of the work is my own, I have utilized tools such as LLMs for assistance in generating ideas, structuring content, and refining certain sections. Proper attribution has been given to all external sources and tools used, ensuring compliance with academic integrity policies.
+While the majority of the work is my own, I have utilized tools such as  tools such as Large Language Models (LLMs) for assistance in generating ideas, structuring content, and refining certain sections. Proper attribution has been given to all external sources and tools used, ensuring compliance with academic integrity policies.
 
 This work is intended for personal academic and professional use only and is not to be used or reproduced by others without proper attribution or explicit permission.
 
