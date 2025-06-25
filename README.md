@@ -18,7 +18,7 @@ Welcome to my academic portfolio developed throughout the MSc in Data Science pr
 
 ## 📚 Program Overview
 
-The MSc in Data Science at AUEB provides a comprehensive curriculum in statistics, machine learning, optimization, data engineering, and ethical AI practices. The coursework integrates hands-on experience with state-of-the-art tools, frameworks, and real datasets, fostering both depth and breadth in data science expertise.
+The MSc in Data Science at AUEB offers a comprehensive curriculum in statistics, machine learning, optimization, data engineering, and ethical AI practices. The coursework integrates hands-on experience with state-of-the-art tools, frameworks, and real datasets, fostering both depth and breadth in data science expertise.
 
 Each entry corresponds to a course and includes assignments, code, final reports, and practical applications.
 
@@ -33,7 +33,7 @@ Each entry corresponds to a course and includes assignments, code, final reports
 ### 📌 Introduction to Data Management and Engineering  
 Focus: Relational database systems and performance optimization  
 - ER modeling, normalization, schema design  
-- SQL (DDL/DML) scripting with PostgreSQL  
+- SQL scripting with PostgreSQL  
 - Views, constraints, indexing, and query plans  
 - Optimization using `EXPLAIN` and indexing strategies
 
@@ -183,5 +183,17 @@ Focus: Visual storytelling through static, animated, and interactive dashboards
 | Type | ECTS | Grade |
 |------|------|-------|
 | Core | 6    |       |
+
+---
+
+## 📈 Closing Remarks
+
+This portfolio showcases the work completed during my MSc in Data Science program at AUEB, highlighting my practical application of data science methodologies across various projects. These projects reflect my ability to integrate cross-disciplinary knowledge and utilize advanced tools to tackle complex data-related challenges.
+
+While the majority of the work is my own, I have utilized tools such as LLMs for assistance in generating ideas, structuring content, and refining certain sections. Proper attribution has been given to all external sources and tools used, ensuring compliance with academic integrity policies.
+
+This work is intended for personal academic and professional use only and is not to be used or reproduced by others without proper attribution or explicit permission.
+
+For further details or collaboration opportunities, please feel free to reach out.
 
 ---
