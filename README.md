@@ -1,6 +1,6 @@
 # 👨‍🎓 About Me
 
-**Stylianos Giagkos**  
+**Stelios Giagkos**  
 MSc in Data Science, Class of 2025  
 Athens University of Economics and Business (AUEB)  
 **Current Role:** Junior Data Engineer, EY Greece – AI & Data Department  
