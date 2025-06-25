@@ -61,12 +61,11 @@ This project investigates the automated classification of respiratory sounds usi
 
 ---
 
-## 💡 Recommendations
+## 💡 Further Improvements
 
 - Apply **focal loss** or **class-balanced loss** to improve rare class detection.
 - Introduce **GANs** or **SMOTE** for data augmentation in underrepresented classes.
 - Explore **threshold calibration** and **DANN** (adversarial domain adaptation).
-- For deployment, consider **model compression** and **quantization**.
 
 ---
 
