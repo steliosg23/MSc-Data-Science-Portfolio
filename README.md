@@ -126,6 +126,19 @@ Focus: Distributed systems and real-time data pipelines
 
 ---
 
+### 📌 Legal and Ethical Issues in Data Science  
+Focus: Data privacy, fairness, and responsible AI.  
+- GDPR, data governance, and personal data rights  
+- Algorithmic bias, discrimination, and accountability  
+- Case studies: Cambridge Analytica, social scoring  
+- Policy design for ethical AI systems
+
+| Type     | ECTS | Grade |
+|----------|------|-------|
+| Elective | 3    | 9     |
+
+---
+
 ## 📘 Trimester 3
 
 ### 📌 Data Science Challenge  
