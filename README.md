@@ -135,7 +135,7 @@ Focus: Data privacy, fairness, and responsible AI.
 
 | Type     | ECTS | Grade |
 |----------|------|-------|
-| Elective | 3    | 9     |
+| Elective | 3    | 9.0   |
 
 ---
 
@@ -151,7 +151,7 @@ Focus: Multi-label classification and graph mining
 
 | Type     | ECTS | Grade |
 |----------|------|-------|
-| Elective | 6    |       |
+| Elective | 6    |10.0   |
 
 ---
 
