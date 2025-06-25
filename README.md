@@ -151,7 +151,7 @@ Focus: Multi-label classification and graph mining
 
 | Type     | ECTS | Grade |
 |----------|------|-------|
-| Elective | 6    |10.0   |
+| Elective | 6    | 10.0  |
 
 ---
 
