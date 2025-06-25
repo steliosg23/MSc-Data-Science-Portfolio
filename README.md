@@ -194,6 +194,4 @@ While the majority of the work is my own, I have utilized tools such as LLMs for
 
 This work is intended for personal academic and professional use only and is not to be used or reproduced by others without proper attribution or explicit permission.
 
-For further details or collaboration opportunities, please feel free to reach out.
-
 ---
