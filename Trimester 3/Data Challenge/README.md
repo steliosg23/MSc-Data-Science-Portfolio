@@ -60,7 +60,7 @@ By combining textual understanding and network science, this project effectively
 ## 📚 Authors
 
 - **Stylianos Giagkos** ([@steliosg23](https://github.com/steliosg23))  
-- **Kazantzis Gerasimos**
-- **Vougioukos Dimitris**
+- **Kazantzis Gerasimos** ([@jerryk42](https://github.com/jerryk42)) 
+- **Vougioukos Dimitris** ([@DVougioukos](https://github.com/DVougioukos)) 
 
 ---
