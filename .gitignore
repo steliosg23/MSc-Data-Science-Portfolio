@@ -1,4 +1,5 @@
 *.csv
+!Courses Projects/Trimester 3/Data Visualization and Communication/Project 2/*.csv
 *.zip
 *.tar.gz
 *.rar
