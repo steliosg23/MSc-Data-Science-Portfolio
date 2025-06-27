@@ -37,9 +37,9 @@ Focus: Relational database systems and performance optimization
 - Views, constraints, indexing, and query plans  
 - Optimization using `EXPLAIN` and indexing strategies
 
-| Type     | ECTS | Grade |
-|----------|------|-------|
-| Elective | 5    | 9.5   |
+| Type     |Grade | ECTS |
+|----------|------|------|
+| Elective | 9.5  |  5   |
 
 ---
 
@@ -51,9 +51,9 @@ Focus: Core machine learning models and statistical methods
 - Final project: Hyperspectral image classification (Salinas dataset)  
 - Tools: `scikit-learn`, `cvxpy`, `matplotlib`, `numpy`
 
-| Type | ECTS | Grade |
-|------|------|-------|
-| Core | 7    | 6.5   |
+| Type | Grade | ECTS |
+|------|------ |------|
+| Core | 6.5   | 7    |
 
 ---
 
@@ -65,9 +65,9 @@ Focus: Applied machine learning with real-world datasets
 - Participation in SemEval 2025: *Food Hazard Detection Challenge*  
 - Tools: HuggingFace Transformers, LightGBM, ResNet101
 
-| Type | ECTS | Grade |
-|------|------|-------|
-| Core | 6    | 10.0  |
+| Type | Grade| ECTS |
+|------|------|------|
+| Core | 10.0 |  6   |
 
 ---
 
@@ -78,9 +78,9 @@ Focus: Statistical inference and probabilistic modeling in R
 - Regression modeling and interaction terms  
 - Tools: R, `ggplot2`, `stats`, `car`, `lm`
 
-| Type | ECTS | Grade |
+| Type | Grade|  ECTS |
 |------|------|-------|
-| Core | 6    | 7.0   |
+| Core | 7.0  |  6    |
 
 ---
 
@@ -94,9 +94,9 @@ Focus: Natural language processing using traditional and neural approaches
 - Evaluation metrics: Accuracy, F1, AUC  
 - Tools: PyTorch, HuggingFace, TensorFlow, Google Colab
 
-| Type | ECTS | Grade |
-|------|------|-------|
-| Core | 6    | 7.5   |
+| Type |Grade |  ECTS|
+|------|------|------|
+| Core | 7.5  | 6    |
 
 ---
 
@@ -107,9 +107,9 @@ Focus: Mathematical optimization and matrix computations
 - Kernel methods and digit recognition  
 - Tools: `numpy`, `scipy.sparse`, custom solvers
 
-| Type | ECTS | Grade |
-|------|------|-------|
-| Core | 6    | 8.0   |
+| Type | Grade| ECTS |
+|------|------|------|
+| Core | 8.0  | 6    |
 
 ---
 
@@ -120,9 +120,9 @@ Focus: Distributed systems and real-time data pipelines
 - Structured streaming, stateful transformations  
 - Topics: HDFS, job scheduling, streaming joins
 
-| Type | ECTS | Grade |
-|------|------|-------|
-| Core | 6    | 10.0  |
+| Type |Grade | ECTS |
+|------|------|------|
+| Core | 10.0 | 6    |
 
 ---
 
@@ -133,9 +133,9 @@ Focus: Data privacy, fairness, and responsible AI.
 - Case studies: Cambridge Analytica, social scoring  
 - Policy design for ethical AI systems
 
-| Type     | ECTS | Grade |
-|----------|------|-------|
-| Elective | 3    | 9.0   |
+| Type     |Grade | ECTS |
+|----------|------|------|
+| Elective | 9.0  | 3    |
 
 ---
 
@@ -149,9 +149,9 @@ Focus: Multi-label classification and graph mining
 - Evaluation: Macro F1-score, stratified validation  
 - Tools: NetworkX, LightGBM, Scikit-learn, HuggingFace
 
-| Type     | ECTS | Grade |
-|----------|------|-------|
-| Elective | 6    | 10.0  |
+| Type     | Grade|  ECTS|
+|----------|------|------|
+| Elective | 10.0 | 6    |
 
 ---
 
@@ -163,9 +163,9 @@ Focus: Clinical audio signal analysis using deep learning
 - Evaluation on a 10-class diagnostic dataset  
 - Tools: PyTorch, Librosa, Scikit-learn
 
-| Type     | ECTS | Grade |
-|----------|------|-------|
-| Elective | 6    |       |
+| Type     | Grade| ECTS |
+|----------|------|------|
+| Elective |      | 6    |
 
 ---
 
@@ -180,9 +180,9 @@ Focus: Visual storytelling through static, animated, and interactive dashboards
   - Tools: `ggplot2`, `gganimate`, Tableau  
 - Outcomes: Policy recommendations through storytelling dashboards
 
-| Type | ECTS | Grade |
-|------|------|-------|
-| Core | 6    |       |
+| Type |Grade | ECTS |
+|------|------|------|
+| Core |      | 6    |
 
 ---
 
