@@ -6,5 +6,5 @@ This subdirectory contains all assets and deliverables for the second project of
 
 You can download the full zipped dashboard package using the button below:
 
-[📦 Download ZIP](https://github.com/steliosg23/MSc-Data-Science-Portfolio/tree/main/Trimester%203/Data%20Visualization%20and%20Communication/Project%202.zip)
+[📦 Download ZIP](https://drive.google.com/file/d/1iLHMuWoHgJOTrJ3ghOhkSKB9OiZlFeKh/view?usp=sharing)
 
