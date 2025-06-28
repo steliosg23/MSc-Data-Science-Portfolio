@@ -4,7 +4,7 @@ This subdirectory contains all assets and deliverables for the second project of
 
 ## 📦 Download
 
-You can download the full zipped dashboard package using the button below:aaaa
+You can download the full zipped dashboard package using the button below:
 
 [📦 Download ZIP](https://drive.google.com/file/d/1iLHMuWoHgJOTrJ3ghOhkSKB9OiZlFeKh/view?usp=sharing)
 
